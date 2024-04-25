@@ -18,7 +18,7 @@ const Posts: React.FC = () => {
   const navigate = useNavigate()
   const socket = io('https://backendsw1-production.up.railway.app/reunion');
 
-  const [password, setPassword] = useState('');
+  const [password,] = useState('');
 
   // Estado para controlar el valor del campo de entrada
   const [codigoReunion, setCodigoReunion] = useState('');
@@ -79,7 +79,7 @@ const Posts: React.FC = () => {
   };
 
   const handleEntrarClick = () => {
-    if (codigoReunion.trim() !== '' && password.trim() !== '') {
+    if (codigoReunion.trim() !== '') {
       try {
         // Emitir un evento 'entrarReunion' con el código y contraseña al servidor
         socket.emit('unirseReunion', { codigoReunion, password, usuarioId: userData.id });
@@ -129,12 +129,6 @@ const Posts: React.FC = () => {
               placeholder="Código de reunión"
               value={codigoReunion}
               onChange={(e) => setCodigoReunion(e.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="Contraseña"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
             />
             <button onClick={handleEntrarClick}>Entrar</button>
           </div>

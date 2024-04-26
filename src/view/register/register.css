@@ -8,8 +8,10 @@
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("https://images.pexels.com/photos/317355/pexels-photo-317355.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
-  background-size: cover;
+    url("/fondoR.png");
+  background-size: cover; /* Ajusta el tamaño de la imagen de fondo */
+  background-repeat: no-repeat; /* Evita que la imagen de fondo se repita */
+  background-position: center; /* Centra la imagen de fondo */
 }
 
 .registerTitle {
@@ -20,18 +22,44 @@
   margin-top: 20px;
   display: flex;
   flex-direction: column;
+  background-color: white;
+  border-radius: 5%;
+  padding: 20px;
 }
 
 .registerForm > label {
   margin: 10px 0;
+  background-color: white;
 }
 
 .registerInput {
-  padding: 10px;
-  background-color: white;
-  border: none;
-  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px; 
 }
+
+.registerInput:placeholder-shown[type=text] {
+  font-size: small;   
+}
+
+input[type="password" i] {
+  -webkit-text-security: disc !important;
+  padding-inline: 2px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  width: 90%;
+}
+
+input[type="text"] {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
 
 .registerInput:focus {
   outline: none;
@@ -40,11 +68,11 @@
 .registerButton {
   margin-top: 20px;
   cursor: pointer;
-  background-color: teal;
+  background-color:  #083559;
   color: white;
-  padding: 10px;
+  padding: 0px;
   border: none;
-  border-radius: 10px;
+  border-radius: 0px;
   text-align: center;
 }
 
@@ -52,10 +80,41 @@
   position: absolute;
   top: 60px;
   right: 20px;
-  background-color: lightcoral;
+  background-color:  #083559;
   cursor: pointer;
   padding: 10px;
   border: none;
   color: white;
-  border-radius: 10px;
+  border-radius: 0px;
 }
+.registerForm {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.registerForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 1;
+  margin-right: 0px;  
+}
+
+.registerButton {
+  margin-top: 0px;
+  cursor: pointer;
+  background-color: #083559;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+}
+

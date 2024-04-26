@@ -8,8 +8,7 @@ import CardMedia, { CardMediaProps } from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import io from 'socket.io-client';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+
 
 interface CustomCardMediaProps extends CardMediaProps {
   svgString: string;
@@ -18,7 +17,7 @@ interface CustomCardMediaProps extends CardMediaProps {
 }
 const Write: React.FC = () => {
   const [usuario, setUsuario] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, ] = useState('');
 
   const navigate = useNavigate()
   const socket = io('https://backendsw1-production.up.railway.app/reunion');
@@ -67,16 +66,9 @@ const Write: React.FC = () => {
   }
 
 
-  const handleEntrarClick = (codigo, password) => {
-    try {
-      // logout();
-      // localStorage.removeItem('token');
-      // localStorage.removeItem('userData');
-      // navigate('/');
-      console.log(codigo);
-      console.log(password);
-
-      socket.emit('unirseReunion', { codigoReunion: codigo, password: password, usuarioId: usuario.usuarioid });
+  const handleEntrarClick = (codigo) => {
+    try {      
+      socket.emit('unirseReunion', { codigoReunion: codigo, usuarioId: usuario.usuarioid });
       socket.on('unirseReunionExitoso', (data) => {
         navigate(`/reunion/${data.id}/${data.codigo}`, {
           state: { tipo: 'unirse', usuarioId: userData.id },
@@ -86,9 +78,9 @@ const Write: React.FC = () => {
       console.error('Error al entrar en la reunión:', error);
     }
   };
-  const handleSearchChange = (event) => {
+  /* const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-  };
+  }; */
   const filteredReuniones = usuario ? usuario.filter((reunion) => {
     const titleMatch = reunion.diagrama_titulo.toLowerCase().includes(searchTerm.toLowerCase());
     const descriptionMatch = reunion.diagrama_descripcion.toLowerCase().includes(searchTerm.toLowerCase());
@@ -96,24 +88,8 @@ const Write: React.FC = () => {
   }) : [];
 
   return (
-    <div>
-      <div>
-        <Box
-          sx={{
-            width: '50%',
-            maxWidth: '100%',
-            paddingTop: '30px'
-          }}
-        >
-          <TextField
-            fullWidth
-            label="Buscar"
-            id="search"
-            value={searchTerm}
-            onChange={handleSearchChange}
-          />
-        </Box>
-      </div>
+    <div><br />
+      <h1 className="registerTitle1">Tus Diagramas: </h1>      
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         {/* Renderizar tarjetas de reuniones */}
         {filteredReuniones.map((reunion: any) => (
@@ -130,7 +106,7 @@ const Write: React.FC = () => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" onClick={() => handleEntrarClick(reunion.codigo, reunion.password)}>Entrar</Button>
+                <Button size="small" onClick={() => handleEntrarClick(reunion.codigo )}>Entrar</Button>
               </CardActions>
             </Card>
           </div>

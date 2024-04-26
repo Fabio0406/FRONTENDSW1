@@ -3,13 +3,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import io from 'socket.io-client';
 import { useUserContext } from "../../UserContext";
+import Header from "../header/Header";
 const Posts: React.FC = () => {
   const { logout } = useUserContext();
   
   const localData = window.localStorage.getItem('loggedFocusEvent') !== null ? window.localStorage.getItem('loggedFocusEvent') : null;
-
-
-
 
   const localDataParsed = localData && localData !== 'null' ? JSON.parse(localData) : null;
 
@@ -33,7 +31,7 @@ const Posts: React.FC = () => {
     e.preventDefault();
 
     try {
-      // Emitir un evento 'crearReunion' con los detalles de la reunión al servidor
+      // Emitir un evento 'crearReunion' con los detalles de la reunión al Servidor
       console.log('userData.id : ', userData.id)
       if (userData.id === null || userData.id === undefined) {
         logout();
@@ -52,11 +50,9 @@ const Posts: React.FC = () => {
 
         
         socket.on('reunionCreada', (data) => {
-          // console.log('Reunión creada:', data.diagrama);
           console.log('Reunión creando2: ', data);
           closeModal();
           console.log('datos obtenidos del backend para unirse a reunion : ', data.reunion.id);
-
           // Redirige a la página de reunión con el ID y el código
           navigate(`/reunion/${data.reunion.id}/${data.codigo}`, {
             state: { diagramaModel: '', tipo: 'nueva', password: data.reunion.password, usuarioId: data.usuarioId },
@@ -81,27 +77,19 @@ const Posts: React.FC = () => {
   const handleEntrarClick = () => {
     if (codigoReunion.trim() !== '') {
       try {
-        // Emitir un evento 'entrarReunion' con el código y contraseña al servidor
+        // Emitir un evento 'entrarReunion' con el código y contraseña al Servidor
         socket.emit('unirseReunion', { codigoReunion, password, usuarioId: userData.id });
         socket.on('unirseReunionExitoso', (data) => {
-          // console.log('data.diagrama.contenido : ', data);
-
-          // const diagramaData = JSON.parse(data.diagrama.contenido);
-
-          // Redirigir a la página de reunión con el ID y el código
-          // navigate(`/reunion/${data.id}/${data.codigo}`); //antes estaba on
           navigate(`/reunion/${data.id}/${data.codigo}`, {
             state: { tipo: 'unirse', usuarioId: userData.id },
           });
         });
 
-      } catch (error) {
-      
+      } catch (error) {      
         console.error('Error al entrar en la reunión:', error);
       }
-    } else {
-      
-      console.error('Por favor, ingresa un código de reunión y una contraseña.');
+    } else {      
+      console.error('Por favor, ingresa un código de reunión');
     }
   };
 
@@ -117,22 +105,29 @@ const Posts: React.FC = () => {
     setModalOpen(false);
   }
   return (
-    <div>
+<div>
       <main>
         <section className="hero">
-          <h1>Reuniones virtuales fáciles y efectivas</h1>
-          <p>Conéctate con colegas y amigos en cualquier lugar y en cualquier momento.</p>
-          <button onClick={openModal}>Iniciar una reunión</button>
-          <div>
-            <input
-              type="text"
-              placeholder="Código de reunión"
-              value={codigoReunion}
-              onChange={(e) => setCodigoReunion(e.target.value)}
-            />
-            <button onClick={handleEntrarClick}>Entrar</button>
+          <div className="col">
+          <Header />
+            <h1>Diagramación virtual fluida y colaborativa</h1>
+            <p>Construye diagramas de secuencias con tus equipos desde cualquier lugar y en cualquier momento.</p>
+            <div>
+              <button onClick={openModal} disabled={!userData}>Iniciar una reunión</button>
+            </div>
           </div>
-
+          <div className="col">
+          <p>Ingresa el codigo de la reunion y ha Diseñar!</p>
+            <div>
+              <input
+                type="text"
+                placeholder="Código de reunión"
+                value={codigoReunion}
+                onChange={(e) => setCodigoReunion(e.target.value)}
+              />
+              <button onClick={handleEntrarClick} disabled={!userData}>Entrar</button>
+            </div>
+          </div>
         </section>
       </main>
       {/* Modal */}
@@ -140,7 +135,7 @@ const Posts: React.FC = () => {
         <div className="modal">
           <div className="modal-content">
             <span className="close" onClick={closeModal}>&times;</span>
-            <h2>Iniciar una reunión</h2>
+            <h2>Crear una reunión</h2>
             {/* Formulario para crear la reunión */}
             <form onSubmit={handleFormSubmit}>
               <label htmlFor="name">Nombre:</label>
@@ -160,12 +155,12 @@ const Posts: React.FC = () => {
                 onChange={handleInputChange}
                 required
               />
-              <button type="submit" >Crear Reunión</button>
+              <button type="submit">Crear Reunión</button>
             </form>
           </div>
         </div>
       )}
-    </div>
+</div>
   );
 };
 

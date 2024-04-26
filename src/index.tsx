@@ -8,8 +8,6 @@ const userData = JSON.parse(localStorage.getItem('userData'));
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-
-
   <UserProvider initialAuthenticated={!!token} initialUserData={userData}>
     <script src="https://unpkg.com/gojs@2.3.11/release/go.js"></script>
 

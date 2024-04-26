@@ -1,36 +1,62 @@
 .login {
   height: calc(100vh - 50px);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.5)
-    ),
-    url("https://images.pexels.com/photos/768473/pexels-photo-768473.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
-  background-size: cover;
+  background: linear-gradient(#1c335e,rgba(255, 255, 255, 0.493)),url("/fondoIC.gif");
+  background-size: contain; /* Ajusta el tamaño de la imagen de fondo */
+  background-repeat: no-repeat; /* Evita que la imagen de fondo se repita */
+  background-position: center; /* Centra la imagen de fondo */
+  background-color: #1a1141; /* Ajusta el último valor para cambiar la opacidad */
 }
+
 
 .loginTitle {
   font-size: 50px;
+  font-style: unset;
+  font-weight: bold; /* Hace que el texto sea más grueso */
+  line-height: 60px; /* Ajusta el espacio entre líneas */
+  color: rgb(0, 0, 0);
+  margin-right: 20px;
 }
 
 .loginForm {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
+  background-color: aliceblue;
+  color: rgb(0, 0, 0);
+  padding: 40px;
+  border: none;
+  border-radius: 15px;
 }
 
 .loginForm > label {
   margin: 10px 0;
 }
 
-.loginInput {
+.loginInput::placeholder{  
+  background-color: rgb(255, 255, 255);
+  font-size: medium;
+}
+
+input[type="text"] {
+  width: 200px;
   padding: 10px;
-  background-color: white;
-  border: none;
-  border-radius: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+  
+}
+
+input[type="password" i] {
+  -webkit-text-security: disc !important;
+  padding-inline: 2px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .loginInput:focus {
@@ -38,24 +64,23 @@
 }
 
 .loginButton {
-  margin-top: 20px;
+  margin-top: 19px;
   cursor: pointer;
-  background-color: lightcoral;
+  background-color:  #083559;
   color: white;
   padding: 10px;
-  border: none;
-  border-radius: 10px;
+  border-radius: 15px;
   text-align: center;
 }
 
-.loginRegisterButton {
-  position: absolute;
-  top: 60px;
-  right: 20px;
-  background-color: teal;
+.loginButtonReg {
+  margin-top: 5px;
   cursor: pointer;
-  padding: 10px;
-  border: none;
+  background-color:  #08355900;
   color: white;
-  border-radius: 10px;
+  padding: 10px;
+  border-radius: 15px;
+  text-align: center;
 }
+
+

@@ -219,11 +219,7 @@ const DiagramWrapper: React.FC<DiagramWrapperProps> = ({
     
       */
       insertLink(fromnode, fromport, tonode, toport) {
-        // console.log(`Modifico link`);
-        // console.log(`fromnode: ${fromnode}`);
-        // console.log(`fromport: ${fromport}`);
-        // console.log(`tonode: ${tonode}`);
-        // console.log(`toport: ${toport}`);
+
 
         // Crea el link
         const newlink = super.insertLink(fromnode, fromport, tonode, toport);
@@ -335,14 +331,13 @@ const DiagramWrapper: React.FC<DiagramWrapperProps> = ({
       new go.Binding("location", "loc", go.Point.parse).makeTwoWay(
         go.Point.stringify
       ),
-      $(
-        go.Panel,
+      $(go.Panel,
         "Auto",
         { name: "HEADER" },
         $(go.Shape, "Rectangle", {
           fill: $(go.Brush, "Linear", {
-            0: "#bbdefb",
-            1: go.Brush.darkenBy("#bbdefb", 0.1),
+            0: "#999",
+            1: go.Brush.darkenBy("#999", 0.1),
           }),
           stroke: null,
         }),
@@ -447,7 +442,6 @@ const DiagramWrapper: React.FC<DiagramWrapperProps> = ({
       var selectedObject = diagramEvent;
       console.log(selectedObject);
       // Obtener el nuevo nombre del usuario (podrías mostrar un cuadro de diálogo para que el usuario ingrese un nuevo nombre)
-      // console.log(diagramEvent.fc)
       var nuevoNombre = prompt("Ingrese el nuevo nombre del nodo:", selectedObject.data.text);
       if (nuevoNombre !== null) {
         // Actualizar el nombre del nodo en el modelo de datos
@@ -468,9 +462,7 @@ const DiagramWrapper: React.FC<DiagramWrapperProps> = ({
       initDiagram={initDiagram}
       nodeDataArray={nodeDataArray}
       linkDataArray={linkDataArray}
-      // modelData={modelData}
       onModelChange={onModelChange}
-    // skipsDiagramUpdate={skipsDiagramUpdate}
     />
   );
 };

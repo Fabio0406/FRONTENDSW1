@@ -8,53 +8,53 @@ import { ReactDiagram } from "gojs-react";
 import { io } from 'socket.io-client';
 import { useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { EAConverter } from './exportToEa'; 
+
 
 const initialData = {
   nodeDataArray: [
     {
-      key: "Fred",
-      text: "Fred: Patron",
+      key: "Usuario",
+      text: "Usuario",
       isGroup: true,
       loc: "0 0",
       duration: 9,
     },
     {
-      key: "Bob",
-      text: "Bob: Waiter",
+      key: "Interfaz",
+      text: "Interfaz",
       isGroup: true,
       loc: "100 0",
       duration: 9,
     },
     {
-      key: "Hank",
-      text: "Hank: Cook",
+      key: "Servidor",
+      text: "Servidor",
       isGroup: true,
       loc: "200 0",
       duration: 9,
     },
     {
-      key: "Renee",
-      text: "Renee: Cashier",
+      key: "Base Datos",
+      text: "Base Datos",
       isGroup: true,
       loc: "300 0",
       duration: 9,
     },
-    { group: "Bob", start: 1, duration: 2 },
-    { group: "Hank", start: 2, duration: 3 },
-    { group: "Fred", start: 3, duration: 1 },
-    { group: "Bob", start: 5, duration: 1 },
-    { group: "Fred", start: 6, duration: 2 },
-    { group: "Renee", start: 8, duration: 1 },
+    { group: "Interfaz", start: 1, duration: 2 },
+    { group: "Servidor", start: 2, duration: 3 },
+    { group: "Usuario", start: 3, duration: 1 },
+    { group: "Interfaz", start: 5, duration: 1 },
+    { group: "Usuario", start: 6, duration: 2 },
+    { group: "Base Datos", start: 8, duration: 1 },
   ],
 
   linkDataArray: [
-    { from: "Fred", to: "Bob", text: "order", time: 1 },
-    { from: "Bob", to: "Hank", text: "order food", time: 2 },
-    { from: "Bob", to: "Fred", text: "serve drinks", time: 3 },
-    { from: "Hank", to: "Bob", text: "finish cooking", time: 5 },
-    { from: "Bob", to: "Fred", text: "serve food", time: 6 },
-    { from: "Fred", to: "Renee", text: "pay", time: 8 },
+    { from: "Usuario", to: "Interfaz", text: "order", time: 1 },
+    { from: "Interfaz", to: "Servidor", text: "order food", time: 2 },
+    { from: "Interfaz", to: "Usuario", text: "serve drinks", time: 3 },
+    { from: "Servidor", to: "Interfaz", text: "finish cooking", time: 5 },
+    { from: "Interfaz", to: "Usuario", text: "serve food", time: 6 },
+    { from: "Usuario", to: "Base Datos", text: "pay", time: 8 },
   ],
 };
 
@@ -75,7 +75,7 @@ const Reunion: React.FC = () => {
       .then(async (response) => {
 
 
-        const tipo = (location.state && location.state.tipo) || 'default'; 
+        const tipo = (location.state && location.state.tipo) || 'default';
 
         console.log("tipo: ", tipo)
         if (tipo === 'unirse' || tipo === 'nueva' || (location.state && location.state.usuarioId === response.data.usuarioId)) {
@@ -111,8 +111,8 @@ const Reunion: React.FC = () => {
       key: "newNode" + Date.now(),
       text: "NewNode",
       isGroup: true,
-      loc: `${nextNodeX} 0`, 
-      duration: 3, 
+      loc: `${nextNodeX} 0`,
+      duration: 3,
     };
 
     // Copia el array existente y agrega el nuevo nodo
@@ -167,52 +167,31 @@ const Reunion: React.FC = () => {
 
     console.log("Model changed:", obj);
   };
-  const downloadJSON = (data, filename) => {
-    const blob = new Blob([data], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
 
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename;
-    a.click();
 
-    URL.revokeObjectURL(url); // Liberar el objeto URL
-  };
-
-  const handleDownloadButtonClick = () => {
-    if (diagramRef.current) {
-      const diagram = diagramRef.current.getDiagram();
-      if (diagram) {
-        const eaCode = EAConverter.converterToEa(diagram.model.nodeDataArray,
-          // @ts-ignore
-          diagram.model.linkDataArray);
-        downloadJSON(eaCode, "ea_data.xmi");
-      }
-    }
-  };
-  
+ 
 
   const downloadSvg = () => {
     if (diagramRef.current) {
       const diagram = diagramRef.current.getDiagram();
 
       if (diagram) {
-        
+
         const svgString = diagram.makeSvg({
           scale: 1,
           background: 'white',
         });
         const svgText = new XMLSerializer().serializeToString(svgString);
 
-        
+
         const blob = new Blob([svgText], { type: 'image/svg+xml' });
 
-        
+
         saveAs(blob, 'diagrama.svg');
 
         axios.post('https://backendsw1-production.up.railway.app/reuniones/savesvg', { svgString: svgText, id })
           .then(_response => {
-            // console.log('SVG guardado correctamente en el servidor:', response.data);
+            // console.log('SVG guardado correctamente en el Servidor:', response.data);
           })
           .catch(error => {
             console.error('Error al guardar el SVG:', error);
@@ -233,7 +212,7 @@ const Reunion: React.FC = () => {
 
       axios.post('https://backendsw1-production.up.railway.app/reuniones/savesvg', { svgString: svgText, id })
         .then(_response => {
-          // console.log('SVG guardado correctamente en el servidor:', response.data);
+          // console.log('SVG guardado correctamente en el Servidor:', response.data);
         })
     }
   };
@@ -252,7 +231,7 @@ const Reunion: React.FC = () => {
 
         axios.post('https://backendsw1-production.up.railway.app/reuniones/java', requestData)
           .then(response => {
-            // Obtener el contenido de texto del servidor
+            // Obtener el contenido de texto del Servidor
             const javaCode = response.data;
 
             // Crear un Blob con el contenido de texto
@@ -292,7 +271,7 @@ const Reunion: React.FC = () => {
 
         axios.post('https://backendsw1-production.up.railway.app/reuniones/python', requestData)
           .then(response => {
-            // Obtener el contenido de texto del servidor
+            // Obtener el contenido de texto del Servidor
             const pythonCode = response.data;
 
             // Crear un Blob con el contenido de texto
@@ -333,7 +312,7 @@ const Reunion: React.FC = () => {
 
         axios.post('https://backendsw1-production.up.railway.app/reuniones/javascript', requestData)
           .then(response => {
-            // Obtener el contenido de texto del servidor
+            // Obtener el contenido de texto del Servidor
             const jsCode = response.data;
 
             // Crear un Blob con el contenido de texto
@@ -404,45 +383,50 @@ const Reunion: React.FC = () => {
   };
 
 
-  
+
   <input type="file" accept=".gojs" onChange={handleUploadFile} key={Math.random()} />
+
+
 
   return (
     <div>
-      <DiagramWrapper
-        diagramRef={diagramRef}
-        nodeDataArray={data.nodeDataArray}
-        linkDataArray={data.linkDataArray}
-        onDiagramEvent={handleDiagramEvent}
-        onModelChange={handleModelChange}
-      // onNodeDoubleClicked={handleNodeDoubleClicked}
-      />
-      <button onClick={addNode}>Add Node</button>
-      <div>
-        <button onClick={handleDownloadButtonClick}>Exportar Diagrama a .EA</button>
+        <h1>Codigo de la Reunión: {codigo}</h1>        
+      <div className="row">
+        <div className="col1">
+          <button className="button2" onClick={addNode}>Añadir Nodo</button>
+          
+          <div>
+            <button className="button2" onClick={handleConvertJavaButtonClick}>Convertir a Java</button>
+          </div>
+          <div>
+            <button className="button2" onClick={handleConvertJavaScriptButtonClick}>Convertir a JavaScript</button>
+          </div>
+          <div>
+            <button className="button2" onClick={handleConvertPythonButtonClick}>Convertir a Python</button>
+          </div>
+          <div>
+            <button className="button2" onClick={handleGojsDownloadButtonClick}>Descargar Diagrama GoJs</button>
+          </div>
+          <div>
+            <button className="button2" onClick={downloadSvg}>Descargar Imagen</button>
+          </div>
+          <input className="button2" type="file" accept=".gojs" onChange={handleUploadFile} key={Math.random()} />
+        </div>
+        <div className="col">
+          <DiagramWrapper
+            diagramRef={diagramRef}
+            nodeDataArray={data.nodeDataArray}
+            linkDataArray={data.linkDataArray}
+            onDiagramEvent={handleDiagramEvent}
+            onModelChange={handleModelChange}
+          />
+        </div>
       </div>
       <div>
-        <button onClick={downloadSvg}>Descargar Imagen SVG</button>
-      </div>
-      <div>
-        <button onClick={handleConvertJavaButtonClick}>Convertir a Java</button>
-      </div>
-      <div>
-        <button onClick={handleConvertPythonButtonClick}>Convertir a Python</button>
-      </div>
-      <div>
-        <button onClick={handleConvertJavaScriptButtonClick}>Convertir a JavaScript</button>
-      </div>
-      <div>
-        <button onClick={handleGojsDownloadButtonClick}>Descargar Diagrama GoJs</button>
-      </div>
-      <input type="file" accept=".gojs" onChange={handleUploadFile} key={Math.random()} />
-
-      <div>
-        Datos de la Reunión:
+        
         <ul>
-          <li>Codigo de la Reunión: {codigo} </li>
-          {/* {password && <li>Contraseña de la Reunión: {password}</li>} */}
+          <li> </li>
+
         </ul>
       </div>
     </div>

@@ -1,30 +1,27 @@
 .top {
   width: 100%;
-  height: 50px;
-  background-color: white;
-  position: sticky;
+  height: 100%;
+  background-color: #1c335e; /* Cambié el color de fondo */
+
   top: 0;
   display: flex;
   align-items: center;
   z-index: 999;
-  font-family: Bookman, URW Bookman L, serif	;
-  background-color: #01696e;
-  color: #ffffff; /* Debes cambiar esto a #ffffff para el color blanco */
+  font-family: Bookman, 'URW Bookman L', serif; /* Ajusté la sintaxis de la fuente */
+  color: #ffffff; /* Color de texto blanco */
 }
 
-.topLeft,
-.topRight {
+.topLeft{
   flex: 3;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-.topIcon {
-  font-size: 20px;
-  margin-right: 10px;
-  color: #444;
-  cursor: pointer;
+.topRight {
+  flex: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .topCenter {
@@ -44,9 +41,10 @@
   font-size: 18px;
   font-weight: 300;
   cursor: pointer;
+  text-align: center; /* Añadí alineación horizontal */
 }
 
-.topListItem:hover{
+.topListItem:hover {
     color: gray;
 }
 
@@ -60,34 +58,56 @@
 }
 
 a {
-  text-decoration: none; /* Elimina los bordes de Link */
-  font-family: 'MiFuenteElegante', sans-serif; /* Usa tu fuente personalizada y luego una fuente de respaldo */
-  font-size: 16px; /* Tamaño de fuente */
-  color: #63a2a5; /* Color de texto personalizado */
+  text-decoration: none;
+  font-family: 'MiFuenteElegante', sans-serif;
+  font-size: 16px;
+  color: #ffffff;
 }
 
-/* Estilo para los enlaces al pasar el mouse (puedes personalizar esto según tus preferencias) */
 a:hover {
-  text-decoration: underline; /* Agrega subrayado al pasar el mouse si lo deseas */
-  color: gray; /* Color de texto personalizado al pasar el mouse */
+  text-decoration: underline;
+  color: gray;
 }
 
-/* Define un estilo para el botón de cerrar sesión */
 .topLogoutButton {
-  background-color: #085659; /* Color de fondo */
-  color: white; /* Color de texto */
-  border: none; /* Elimina el borde */
-  padding: 10px 20px; /* Espaciado interno (ajusta según sea necesario) */
-  font-size: 16px; /* Tamaño de fuente */
-  cursor: pointer; /* Cambia el cursor al pasar el mouse */
-  border-radius: 5px; /* Bordes redondeados */
-  font-family: 'MiFuenteElegante', sans-serif; /* Usa tu fuente personalizada y luego una fuente de respaldo */
-  transition: background-color 0.3s, color 0.3s; /* Transición suave al pasar el mouse */
+  background-color: #131c2e;
+  color: white;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: 'MiFuenteElegante', sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+  margin-left: 0px;
 }
 
-/* Cambia los colores al pasar el mouse */
 .topLogoutButton:hover {
-  background-color: #04292a; /* Color de fondo al pasar el mouse */
-  color: white; /* Color de texto al pasar el mouse */
+  background-color: #04292a;
+  color: white;
 }
 
+.centeredItems {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 3px;
+}
+.topRight {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;  
+}
+ul li {
+  margin-right: 0px;
+}
+
+.topListItemTu{
+  padding-left: 3px;
+  padding-right: 15px;
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}

@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import api from '../../axiosInstance'; // Importa la instancia de Axios
 import { useNavigate } from 'react-router-dom';
 
-import React, {useState } from "react";
+import React, { useState } from "react";
 
 const Login: React.FC = () => {
   const [formData, setFormData] = useState({
-    ci: 0,
+    ci: " ",
     contrasena: '',
   });
   const [error, setError] = useState('');
@@ -18,12 +18,12 @@ const Login: React.FC = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/user/login', formData); 
+      const response = await api.post('/user/login', formData);
       console.log('Inicio de sesión correctamente:', response.data.user.token);
       const userData = JSON.stringify(response.data.user.usuario);
       console.log("user iniciado : ", userData);
       const token = JSON.stringify(response.data.user.token);
-      
+
       window.localStorage.setItem('loggedFocusEvent', JSON.stringify({ userData, token }));
 
       setUser(userData);
@@ -34,7 +34,7 @@ const Login: React.FC = () => {
     } catch (error) {
 
       console.error('Error al iniciar Sesión:', error);
-      setError('Error al iniciar sesión. Por favor, verifica tus credenciales.');
+      setError('CI o contraseña incorrecta');
     }
   };
 
@@ -42,26 +42,27 @@ const Login: React.FC = () => {
     <div className="login">
       <span className="loginTitle">Inicio de Sesión</span>
       {error && <p>{error}</p>} {/* Muestra el mensaje de error si está configurado */}
+
       <form className="loginForm" onSubmit={handleSubmit}>
-        <label>Número de C.I</label>
+        <label>C.I</label>
         <input
-          type="number"
-          placeholder="Ingrese su C.I"
-          value={formData.ci}
-          onChange={(e) => setFormData({ ...formData, ci: e.target.valueAsNumber })}
+          className="loginInput"
+          type="text"
+          placeholder="Ingrese su numero C.I"
+          onChange={(e) => setFormData({ ...formData, ci: e.target.value })}
         />
         <label>Contraseña</label>
         <input
+          className="loginInput"
           type="password"
-          placeholder="Contraseña"
-          value={formData.contrasena}
+          placeholder="Contraseña"          
           onChange={(e) => setFormData({ ...formData, contrasena: e.target.value })}
         />
         <button className="loginButton">Iniciar Sesión</button>
+        <button className="loginButtonReg">
+          <Link to="/register">¿No estás registrado?</Link>
+        </button>
       </form>
-      <button className="loginRegisterButton">
-        <Link to="/register">No estás registrado?</Link>
-      </button>
     </div>
   );
 };

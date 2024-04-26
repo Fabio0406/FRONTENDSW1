@@ -4,7 +4,6 @@ import Login from "./view/login/Login";
 import Register from "./view/register/Register";
 import Reunion from './view/Reunion/Reunion';
 import Settings from "./view/settings/Settings";
-import Single from "./view/single/Single";
 import Write from "./view/write/Write";
 import Topbar from "./components/topbar/topbar";
 
@@ -22,7 +21,6 @@ export default function App() {
         <Route path="/posts" element={<Homepage />} />
         <Route path="/register" element={isLoggedIn ? <Homepage /> : <Register />} />
         <Route path="/login" element={isLoggedIn ? <Homepage /> : <Login />} />
-        <Route path="/post/:id" element={<Single />} />
         <Route path="/diagramas" element={isLoggedIn ? <Write /> : <Login />} />
         <Route path="/settings" element={isLoggedIn ? <Settings /> : <Login />} />
         <Route path='/reunion/:id/:codigo' element={<Reunion />} />

@@ -7,7 +7,7 @@ const Topbar: React.FC = () => {
   const navigate = useNavigate();
 
   const localData = window.localStorage.getItem('loggedFocusEvent') !== null ? window.localStorage.getItem('loggedFocusEvent') : null;
-  
+
   const isLoggedIn = localData !== null && Object.keys(localData).length !== 0;
 
 
@@ -23,64 +23,64 @@ const Topbar: React.FC = () => {
   };
   return (
     <div className="top">
-      <div className="topLeft">{/* Contenido del lado izquierdo de la barra superior */}</div>
-      <div className="topRight">
-        <ul className="topList">
-          <li className="topListItem">
-            <Link className="link" to="/">
-              Inicio
-            </Link>
-          </li>
-          <li className="topListItem">
-            <Link className="link, topListItem" to="/diagramas">
-              Tus Diagramas
-            </Link>
-          </li>
-          <li className="topListItem">Sobre Mí</li>
-          <li className="topListItem">Contáctame</li>
-        </ul>
-      </div>
-      <div className="topRight">
-        {isLoggedIn ? (
-          <div className="">
-            <ul className="topList">
-              {userData && (
-                <li className="topListItem" style={{ marginTop: '25px', cursor: 'text' }}>
-                  {userData.nombre} {userData.apellido}
-                </li>
-              )}
-
-              <li>
-                <Link className="link" to="/settings">
-                  <img
-                    className="topImg" style={{ marginTop: '17px' }}
-                    src="https://images.pexels.com/photos/1858175/pexels-photo-1858175.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-                    alt=""
-                  />
-                </Link>
-              </li>
-              <li>
-                <button className="topLogoutButton" onClick={handleLogout}>
-                  Cerrar Sesión
-                </button>
-              </li>
-            </ul>
-          </div>
-        ) : (
+      <div className="topLeft">
+        <div className="centeredItems">
           <ul className="topList">
             <li className="topListItem">
-              <Link className="link" to="/login">
-                Iniciar Sesión
-              </Link>
-            </li>
-            <li className="topListItem">
-              <Link className="link" to="/register">
-                Crear Cuenta
+              <Link className="link" to="/">
+                Inicio
               </Link>
             </li>
           </ul>
-        )}
-        <i className="topSearchIcon fas fa-search"></i>
+        </div>
+        <div className="topRight">
+          {isLoggedIn && (
+            <li className="topListItemTu">
+              <Link className="link" to="/diagramas">
+                Tus Diagramas
+              </Link>
+            </li>
+          )}
+          {isLoggedIn ? (
+            <div className="">
+              <ul className="topList">
+                {userData && (
+                  <li className="topListItemTu" >
+                    {userData.nombre}
+                  </li>
+                )}
+                <li>
+                  <Link className="link" to="/settings">
+                    <img className="topImg" style={{ marginTop: '17px' }} src="https://c1.alamy.com/thumbs/2fntnx5/icono-de-perfil-de-messenger-sobre-fondo-blanco-aislado-ilustracion-2fntnx5.jpg" alt="" />
+                  </Link>
+                </li>
+                <li>
+                  <button className="topLogoutButton" onClick={handleLogout}>
+                    Cerrar Sesión
+                  </button>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <ul className="topList">
+              <li className="topListItem">
+                <button className="topLogoutButton">
+                <Link className="link" to="/login">
+                  Iniciar Sesión
+                </Link>
+                </button>
+              </li>
+              <li className="topListItem">
+              <button className="topLogoutButton">
+                <Link className="link" to="/register">
+                  Crear Cuenta
+                </Link>
+              </button>
+              </li>
+            </ul>
+          )}
+
+        </div>
       </div>
     </div>
   );

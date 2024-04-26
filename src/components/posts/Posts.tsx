@@ -65,7 +65,7 @@ const Posts: React.FC = () => {
       console.error('Error al crear la reunión:', error);
     }
   };
-  // Función para manejar cambios en el campo de entrada
+  // Función para manejar cambios en el campo de entrada*/
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setMeetingDetails((prevDetails) => ({

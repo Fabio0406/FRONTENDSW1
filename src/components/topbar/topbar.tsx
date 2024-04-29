@@ -23,66 +23,71 @@ const Topbar: React.FC = () => {
   };
   return (
     <div className="top">
-      <div className="topLeft">
-        <div className="centeredItems">
+  <div className="topLeft">
+    <div className="centeredItems">
+      {/* Aquí puedes colocar tu icono o logo */}
+      <span className="logoContainer">
+        <img className="logoImg" src="/logo.png" alt="Logo" />
+        <span className="logoText">DiagramColab</span>
+      </span>
+      <ul className="topList">
+        <li className="topListItem">
+          <Link className="link" to="/">
+            Inicio
+          </Link>
+        </li>
+      </ul>
+    </div>
+  </div>
+    <div className="topRight">
+      {isLoggedIn && (
+        <li className="topListItemTu">
+          <Link className="link" to="/diagramas">
+            Tus Diagramas
+          </Link>
+        </li>
+      )}
+      {isLoggedIn ? (
+        <div className="">
           <ul className="topList">
-            <li className="topListItem">
-              <Link className="link" to="/">
-                Inicio
+            {userData && (
+              <li className="topListItemTu">
+                {userData.nombre}
+              </li>
+            )}
+            <li>
+              <Link className="link" to="/settings">
+                <img className="topImg" style={{ marginTop: '17px' }} src="https://c1.alamy.com/thumbs/2fntnx5/icono-de-perfil-de-messenger-sobre-fondo-blanco-aislado-ilustracion-2fntnx5.jpg" alt="" />
               </Link>
+            </li>
+            <li>
+              <button className="topLogoutButton" onClick={handleLogout}>
+                Cerrar Sesión
+              </button>
             </li>
           </ul>
         </div>
-        <div className="topRight">
-          {isLoggedIn && (
-            <li className="topListItemTu">
-              <Link className="link" to="/diagramas">
-                Tus Diagramas
+      ) : (
+        <ul className="topList">
+          <li className="topListItem">
+            <button className="topLogoutButton">
+              <Link className="link" to="/login">
+                Iniciar Sesión
               </Link>
-            </li>
-          )}
-          {isLoggedIn ? (
-            <div className="">
-              <ul className="topList">
-                {userData && (
-                  <li className="topListItemTu" >
-                    {userData.nombre}
-                  </li>
-                )}
-                <li>
-                  <Link className="link" to="/settings">
-                    <img className="topImg" style={{ marginTop: '17px' }} src="https://c1.alamy.com/thumbs/2fntnx5/icono-de-perfil-de-messenger-sobre-fondo-blanco-aislado-ilustracion-2fntnx5.jpg" alt="" />
-                  </Link>
-                </li>
-                <li>
-                  <button className="topLogoutButton" onClick={handleLogout}>
-                    Cerrar Sesión
-                  </button>
-                </li>
-              </ul>
-            </div>
-          ) : (
-            <ul className="topList">
-              <li className="topListItem">
-                <button className="topLogoutButton">
-                <Link className="link" to="/login">
-                  Iniciar Sesión
-                </Link>
-                </button>
-              </li>
-              <li className="topListItem">
-              <button className="topLogoutButton">
-                <Link className="link" to="/register">
-                  Crear Cuenta
-                </Link>
-              </button>
-              </li>
-            </ul>
-          )}
-
-        </div>
-      </div>
+            </button>
+          </li>
+          <li className="topListItem">
+            <button className="topLogoutButton">
+              <Link className="link" to="/register">
+                Crear Cuenta
+              </Link>
+            </button>
+          </li>
+        </ul>
+      )}
     </div>
+  </div>
+  
   );
 };
 

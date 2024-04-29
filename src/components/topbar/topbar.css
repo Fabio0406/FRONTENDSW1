@@ -11,6 +11,24 @@
   color: #ffffff; /* Color de texto blanco */
 }
 
+.logoContainer {
+  display: flex;
+  align-items: center;
+  padding-right: 1000px;
+}
+
+.logoImg {
+  width: 50px;
+  height: auto;
+  margin-right: 10px; /* Ajusta el espacio entre la imagen y el texto */
+  
+}
+
+.logoText {
+  font-size: 18px;
+  font-weight: bold; /* Puedes ajustar el peso de la fuente según tus preferencias */
+}
+
 .topLeft{
   flex: 3;
   display: flex;

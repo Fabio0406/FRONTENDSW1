@@ -73,16 +73,9 @@ const Reunion: React.FC = () => {
   useEffect(() => {
     axios.get(`https://backendsw1-production.up.railway.app/diagrama/obtenerDiagramaIdReunion/${id}`)
       .then(async (response) => {
-
-
         const tipo = (location.state && location.state.tipo) || 'default';
-
         console.log("tipo: ", tipo)
         if (tipo === 'unirse' || tipo === 'nueva' || (location.state && location.state.usuarioId === response.data.usuarioId)) {
-          // await axios.post(`https://backendsw1-production.up.railway.app/colaborador/agregar`, { //Registramos al usuario como colaborador
-          //   usuarioId: usuarioId, // Asegúrate de tener el ID del usuario en el estado de tu componente
-          //   reunionId: id, // ID de la reunión a la que se está uniendo el usuario
-          // });
           console.log('response.data : ', response.data)
           setData(response.data);
         } else {
@@ -114,7 +107,6 @@ const Reunion: React.FC = () => {
       loc: `${nextNodeX} 0`,
       duration: 3,
     };
-
     // Copia el array existente y agrega el nuevo nodo
     const newNodeDataArray = [...data.nodeDataArray, newNode];
 
@@ -169,7 +161,7 @@ const Reunion: React.FC = () => {
   };
 
 
- 
+
 
   const downloadSvg = () => {
     if (diagramRef.current) {
@@ -233,18 +225,14 @@ const Reunion: React.FC = () => {
           .then(response => {
             // Obtener el contenido de texto del Servidor
             const javaCode = response.data;
-
             // Crear un Blob con el contenido de texto
             const blob = new Blob([javaCode], { type: 'text/plain' });
-
             // Crear una URL para el Blob
             const url = window.URL.createObjectURL(blob);
-
             // Crear un enlace <a> para descargar el archivo
             const a = document.createElement('a');
             a.href = url;
             a.download = 'DiagramaJava.java'; // Nombre del archivo a descargar
-
             // Agregar el enlace al DOM y hacer clic en él para iniciar la descarga
             document.body.appendChild(a);
             a.click();
@@ -268,18 +256,14 @@ const Reunion: React.FC = () => {
 
           linkDataArray: diagram.model.linkDataArray
         };
-
         axios.post('https://backendsw1-production.up.railway.app/reuniones/python', requestData)
           .then(response => {
             // Obtener el contenido de texto del Servidor
             const pythonCode = response.data;
-
             // Crear un Blob con el contenido de texto
             const blob = new Blob([pythonCode], { type: 'text/plain' });
-
             // Crear una URL para el Blob
             const url = window.URL.createObjectURL(blob);
-
             // Crear un enlace <a> para descargar el archivo
             const a = document.createElement('a');
             a.href = url;
@@ -390,11 +374,11 @@ const Reunion: React.FC = () => {
 
   return (
     <div>
-        <h1>Codigo de la Reunión: {codigo}</h1>        
+      <h1>Codigo de la Reunión: {codigo}</h1>
       <div className="row">
         <div className="col1">
           <button className="button2" onClick={addNode}>Añadir Nodo</button>
-          
+
           <div>
             <button className="button2" onClick={handleConvertJavaButtonClick}>Convertir a Java</button>
           </div>
@@ -423,7 +407,7 @@ const Reunion: React.FC = () => {
         </div>
       </div>
       <div>
-        
+
         <ul>
           <li> </li>
 

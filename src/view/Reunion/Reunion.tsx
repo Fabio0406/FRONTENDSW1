@@ -208,122 +208,9 @@ const Reunion: React.FC = () => {
         })
     }
   };
-  // Función para encontrar el ID del nodo correspondiente en StarUML a partir de la clave del nodo de GoJS
-  const handleConvertJavaButtonClick = () => {
-    if (diagramRef.current) {
-      const diagram = diagramRef.current.getDiagram();
-      if (diagram) {
-        // Enviar los datos al backend para la conversión a Java
-        const requestData = {
-          nodeDataArray: diagram.model.nodeDataArray,
-          // @ts-ignore
-
-          linkDataArray: diagram.model.linkDataArray
-        };
-
-        axios.post('https://backendsw1-production.up.railway.app/reuniones/java', requestData)
-          .then(response => {
-            // Obtener el contenido de texto del Servidor
-            const javaCode = response.data;
-            // Crear un Blob con el contenido de texto
-            const blob = new Blob([javaCode], { type: 'text/plain' });
-            // Crear una URL para el Blob
-            const url = window.URL.createObjectURL(blob);
-            // Crear un enlace <a> para descargar el archivo
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'DiagramaJava.java'; // Nombre del archivo a descargar
-            // Agregar el enlace al DOM y hacer clic en él para iniciar la descarga
-            document.body.appendChild(a);
-            a.click();
-
-            // Eliminar el enlace del DOM después de la descarga
-            window.URL.revokeObjectURL(url);
-          })
-          .catch(error => {
-            console.error('Error al enviar datos al backend:', error);
-          });
-      }
-    }
-  };
-  const handleConvertPythonButtonClick = () => {
-    if (diagramRef.current) {
-      const diagram = diagramRef.current.getDiagram();
-      if (diagram) {
-        // Enviar los datos al backend para la conversión a Java
-        const requestData = {
-          nodeDataArray: diagram.model.nodeDataArray,      // @ts-ignore
-
-          linkDataArray: diagram.model.linkDataArray
-        };
-        axios.post('https://backendsw1-production.up.railway.app/reuniones/python', requestData)
-          .then(response => {
-            // Obtener el contenido de texto del Servidor
-            const pythonCode = response.data;
-            // Crear un Blob con el contenido de texto
-            const blob = new Blob([pythonCode], { type: 'text/plain' });
-            // Crear una URL para el Blob
-            const url = window.URL.createObjectURL(blob);
-            // Crear un enlace <a> para descargar el archivo
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'DiagramaPython.py'; // Nombre del archivo a descargar
-
-            // Agregar el enlace al DOM y hacer clic en él para iniciar la descarga
-            document.body.appendChild(a);
-            a.click();
-
-            // Eliminar el enlace del DOM después de la descarga
-            window.URL.revokeObjectURL(url);
-          })
-          .catch(error => {
-            console.error('Error al enviar datos al backend:', error);
-          });
-      }
-    }
-  };
-  const handleConvertJavaScriptButtonClick = () => {
-    if (diagramRef.current) {
-      const diagram = diagramRef.current.getDiagram();
-      if (diagram) {
-        // Enviar los datos al backend para la conversión a Java
-        const requestData = {
-          nodeDataArray: diagram.model.nodeDataArray,
-          // @ts-ignore
-
-          linkDataArray: diagram.model.linkDataArray
-        };
-
-        axios.post('https://backendsw1-production.up.railway.app/reuniones/javascript', requestData)
-          .then(response => {
-            // Obtener el contenido de texto del Servidor
-            const jsCode = response.data;
-
-            // Crear un Blob con el contenido de texto
-            const blob = new Blob([jsCode], { type: 'text/plain' });
-
-            // Crear una URL para el Blob
-            const url = window.URL.createObjectURL(blob);
-
-            // Crear un enlace <a> para descargar el archivo
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'DiagramaJavaScript.js'; // Nombre del archivo a descargar
-
-            // Agregar el enlace al DOM y hacer clic en él para iniciar la descarga
-            document.body.appendChild(a);
-            a.click();
-
-            // Eliminar el enlace del DOM después de la descarga
-            window.URL.revokeObjectURL(url);
-          })
-          .catch(error => {
-            console.error('Error al enviar datos al backend:', error);
-          });
-      }
-    }
-  };
-
+  
+  
+  
   const handleGojsDownloadButtonClick = () => {
     if (diagramRef.current) {
       const diagram = diagramRef.current.getDiagram();
@@ -378,16 +265,7 @@ const Reunion: React.FC = () => {
       <div className="row">
         <div className="col1">
           <button className="button2" onClick={addNode}>Añadir Nodo</button>
-
-          <div>
-            <button className="button2" onClick={handleConvertJavaButtonClick}>Convertir a Java</button>
-          </div>
-          <div>
-            <button className="button2" onClick={handleConvertJavaScriptButtonClick}>Convertir a JavaScript</button>
-          </div>
-          <div>
-            <button className="button2" onClick={handleConvertPythonButtonClick}>Convertir a Python</button>
-          </div>
+          
           <div>
             <button className="button2" onClick={handleGojsDownloadButtonClick}>Descargar Diagrama GoJs</button>
           </div>
